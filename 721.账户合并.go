@@ -52,8 +52,8 @@ func accountsMerge(accounts [][]string) (ans [][]string) {
         name := account[0]
         for _, email := range account[1:] {
             if _, has := emailToIndex[email]; !has {
-                emailToIndex[email] = len(emailToIndex)
-                emailToName[email] = name
+                emailToIndex[email] = len(emailToIndex) //记录所有不同的email地址
+                emailToName[email] = name   //记录email对应的用户名
             }
         }
     }
@@ -62,7 +62,7 @@ func accountsMerge(accounts [][]string) (ans [][]string) {
     for i := range parent {
         parent[i] = i
     }
-    var find func(int) int
+    var find func(int) int  //函数值类型
     find = func(x int) int {
         if parent[x] != x {
             parent[x] = find(parent[x])
@@ -70,7 +70,7 @@ func accountsMerge(accounts [][]string) (ans [][]string) {
         return parent[x]
     }
     union := func(from, to int) {
-        parent[find(from)] = find(to)
+        parent[find(from)] = find(to)   //没有考虑优化树的深度
     }
 
     for _, account := range accounts {
@@ -78,16 +78,17 @@ func accountsMerge(accounts [][]string) (ans [][]string) {
         for _, email := range account[2:] {
             union(emailToIndex[email], firstIndex)
         }
-    }
+    }//属于同一账户的邮箱就拥有同样的int值
 
     indexToEmails := map[int][]string{}
     for email, index := range emailToIndex {
-        index = find(index)
+        index = find(index)//找的firstIndex,也就是最父亲的那个结点
         indexToEmails[index] = append(indexToEmails[index], email)
     }
 
     for _, emails := range indexToEmails {
         sort.Strings(emails)
+        //emails[0]表示mails序列中排第一的那个，emialToNmae记录了每个email对应的账户名
         account := append([]string{emailToName[emails[0]]}, emails...)
         ans = append(ans, account)
     }
