@@ -68,6 +68,11 @@ func maxNumEdgesToRemove(n int, edges [][]int) int {
         return -1
     }
     return ans
+    //算法思路：用ans记录总边数，没使用一条边就减去1，最后剩的就是可以删除的数量
+    //分别为alice,bob建立两个并查集，首先考察类型3的边，
+    //如果有一人需要（即这条边两端点不在同一连通分量内），则将两端点进行合并，并将ans减1
+    //接着考察独占边，根据type值，分别对alice或者bob的并查集尝试进行合并，
+    //若合并成功，则ans-1,合并失败则继续考察下一条独占边
 }
 
 // @lc code=end
