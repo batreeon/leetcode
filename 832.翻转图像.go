@@ -22,6 +22,17 @@ func flipAndInvertImage(A [][]int) [][]int {
 			A[i][l/2] = reverse(A[i][l/2])
 		}
 	}
+	/*采用异或消耗的反倒多了。。。
+	for i := 0 ; i < len(A) ; i++ {
+		l := len(A[i])
+		for j := 0 ; j < l/2 ; j++ {
+			A[i][j],A[i][l-j-1] = A[i][l-j-1]^1,A[i][j]^1
+		}
+		if l%2 == 1 {
+			A[i][l/2] = A[i][l/2]^1
+		}
+	}
+	*/
 	return A
 }
 // @lc code=end
