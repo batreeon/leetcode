@@ -37,14 +37,23 @@ func decodeString(s string) string {
 			}
 			num,_ := strconv.Atoi(string(res))
 			nums = append(nums,num)
-		}else if s[i] == '[' {
+
 			brackets = append(brackets, '[')
 			i++
-			res := []byte{}
+			res = res[0:0]
 			for ; s[i] - 'a' < 26 ; i++ {
 				res = append(res,s[i])
 			}
 			codes = append(codes,res)
+
+		// }else if s[i] == '[' {
+		// 	brackets = append(brackets, '[')
+		// 	i++
+		// 	res := []byte{}
+		// 	for ; s[i] - 'a' < 26 ; i++ {
+		// 		res = append(res,s[i])
+		// 	}
+		// 	codes = append(codes,res)
 		}else if s[i] == ']' {
 			nl := len(nums)
 			num := nums[nl-1]
