@@ -7,7 +7,7 @@
 // @lc code=start
 package main
 func topKFrequent(nums []int, k int) []int {
-	//记录每个数的重复次数
+	//记录每个数的重复次数,key是值，value是次数
 	m := map[int]int{}
 	for _,n := range nums {
 		m[n]++
@@ -33,8 +33,12 @@ func topKFrequent(nums []int, k int) []int {
 
 	start,end := 0,len(times)-1
 	p := partition(times,start,end)
-	for p < k-1 {
-		start = p+1
+	for p != k-1 {
+		if p > k-1 {
+			end = p-1
+		}else{
+			start = p+1
+		}
 		p = partition(times,start,end)
 	}
 	ans := []int{}
