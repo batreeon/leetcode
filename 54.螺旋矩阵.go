@@ -21,16 +21,22 @@ func spiralOrder(matrix [][]int) []int {
 		for j := start ; j <= endX ; j++ {
 			ans = append(ans,matrix[start][j])
 		}
+
+		// 至少有两行，才会向下打印
 		if start < endY {//从上到下，若只有一行，则不打印
 			for i := start+1 ; i <= endY ; i++ {
 				ans = append(ans,matrix[i][endX])
 			}
 		}
+
+		// 至少有两行两列，才会向左打印
 		if start < endX && start < endY {//从右向左，若只有一行或一列，不打印
 			for j := endX-1 ; j >= start ; j-- {
 				ans = append(ans,matrix[endY][j])
 			}
 		}
+
+		// 至少有三行两列，才会向上打印
 		if start < endX && start < endY - 1 {//从下到上，若不超过两行或者只有一列，不打印
 			for i := endY-1 ; i > start ; i-- { //这里循环条件就没有=了
 				ans = append(ans,matrix[i][start])
