@@ -5,7 +5,7 @@ type stack struct {
 
 func (st *stack) push(x int) {
 	st.s = append(st.s,x)
-	l++
+	st.l++
 }
 
 func (st *stack) top() int {
