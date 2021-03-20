@@ -65,7 +65,7 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 			}
 		}
 	}
-	return f[len(f)-1]
+	return f[c-1]
 }	
 // @lc code=end
 
