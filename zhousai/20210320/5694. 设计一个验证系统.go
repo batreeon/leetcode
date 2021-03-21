@@ -37,9 +37,11 @@ func (this *AuthenticationManager) Renew(tokenId string, currentTime int)  {
 
 func (this *AuthenticationManager) CountUnexpiredTokens(currentTime int) int {
 	ans := 0
-	for _,v := range this.am {
+	for k,v := range this.am {
 		if v > currentTime {
 			ans++
+		}else{
+			delete(this.am,k)
 		}
 	}
     return ans
