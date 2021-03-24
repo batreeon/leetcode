@@ -51,7 +51,7 @@ func validUtf8(data []int) bool {
 				return false
 			}
 		}
-		// 前面的都合法，遍历检查剩余数组
+		// 前面的都合法，递归检查剩余数组
 		return validutf8(data[n:])
 	}
 	return validutf8(data)
