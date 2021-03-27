@@ -6,6 +6,7 @@
 
 // @lc code=start
 func numTrees(n int) int {
+	/*
 	nums := make([]int,n+1)
 	nums[0] = 1
 	nums[1] = 1
@@ -21,6 +22,18 @@ func numTrees(n int) int {
 		return nums[n]
 	}
 	return numtrees(n)
+	*/
+	
+	// 自底向上，怎么空间消耗还是这么大
+	nums := make([]int,n+1)
+	nums[0] = 1
+	nums[1] = 1
+	for i := 2 ; i <= n ; i++ {
+		for j := 0 ; j < i ; j++ {
+			nums[i] += nums[j]*nums[i-j-1]
+		}
+	}
+	return nums[n]
 }
 // @lc code=end
 
