@@ -32,6 +32,9 @@ func numDecodings(s string) int {
 			if num >= 0 && num <= 26 {
 				res += dp[j+1]
 			}
+			if num >= 26 {//后面的分割没必要进行了，比26大了都
+				break
+			}
 		}
 		dp[i] = res
 	}
