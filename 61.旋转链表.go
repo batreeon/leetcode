@@ -13,6 +13,7 @@
  * }
  */
 func rotateRight(head *ListNode, k int) *ListNode {
+	/*
 	if head == nil {
 		return nil
 	}
@@ -44,6 +45,38 @@ func rotateRight(head *ListNode, k int) *ListNode {
 	tail.Next = head
 	head = pNode
 	newTail.Next = nil//修改相应的量
+	return head
+	*/
+
+	// 20210327
+	if head == nil || head.Next == nil {
+		return head
+	}
+	
+	// 找到链表长度和尾节点
+	tail := head
+	l := 1
+	for tail.Next != nil {
+		tail = tail.Next
+		l++
+	}
+
+	// 有效旋转长度
+	k %= l
+	if k == 0 {
+		return head
+	}
+
+	// 找到新的头和尾
+	newTail,newHead := head,head.Next	//旋转l-1次的结果
+	// 则要得到旋转k次的结果，应执行l-(l-k)次
+	for i := 1 ; l-k != i ; i++ {
+		newTail,newHead = newTail.Next,newHead.Next
+	}
+
+	tail.Next = head
+	head = newHead
+	newTail.Next = nil
 	return head
 }
 // @lc code=end
