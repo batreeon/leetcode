@@ -24,6 +24,10 @@ func sortedListToBST(head *ListNode) *TreeNode {
 	if head == nil {
 		return nil
 	}
+
+	// 处理单节点的下面这个判断，是必须要加的，若只有单节点slow会指向head，
+	// 左子树又会将head传入函数，无线循环，耗尽内存
+	// （传入两节点链表，slow会指向第二个没这个问题，右子树会给函数传入nil,没有这个问题）
 	if head.Next == nil {
 		return &TreeNode{Val:head.Val}
 	}
