@@ -13,6 +13,9 @@
  *     Right *TreeNode
  * }
  */
+
+ /*
+//  以前通过版
 type BSTIterator struct {
 	stack []*TreeNode
 }
@@ -53,7 +56,47 @@ func (this *BSTIterator) Next() int {
 func (this *BSTIterator) HasNext() bool {
 	return len(this.stack) > 0
 }
+*/
 
+
+// 20210328每日一题版
+type BSTIterator struct {
+	nodes []*TreeNode
+}
+
+func Constructor(root *TreeNode) BSTIterator {
+	nodes := []*TreeNode{}
+	if root != nil {
+		nodes = append(nodes,root)
+		for root.Left != nil {
+			nodes = append(nodes,root.Left)
+			root = root.Left
+		}
+	}
+	return BSTIterator{nodes}
+}
+
+func (this *BSTIterator) Next() int {
+	l := len(this.nodes)
+	node := this.nodes[l-1]
+	val := node.Val
+	
+	this.nodes = this.nodes[:l-1]
+
+	if node.Right != nil {
+		this.nodes = append(this.nodes,node.Right)
+		node = node.Right
+		for node.Left != nil {
+			this.nodes = append(this.nodes,node.Left)
+			node = node.Left
+		}
+	}
+	return val
+}
+
+func (this *BSTIterator) HasNext() bool {
+	return len(this.nodes) > 0
+}
 
 /**
  * Your BSTIterator object will be instantiated and called as such:
