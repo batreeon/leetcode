@@ -37,6 +37,9 @@ func wordBreak(s string, wordDict []string) bool {
 		if _,ok := m[s] ; ok {
 			return true
 		}
+		if len(s) <= minLen {
+			return false
+		}
 		i := min(len(s),maxLen)
 		for ; i >= minLen ; i-- {
 			if _,ok := m[s[0:i]] ; ok {
