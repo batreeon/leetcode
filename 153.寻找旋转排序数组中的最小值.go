@@ -6,6 +6,7 @@
 
 // @lc code=start
 func findMin(nums []int) int {
+	/*
 	n := len(nums)
 	if n == 1 {
 		return nums[0]
@@ -28,6 +29,45 @@ func findMin(nums []int) int {
 		}
 	}
 	return nums[l]
+	*/
+
+	/*
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+	l,r := 0,n-1
+	for l < r {
+		if nums[l] < nums[r] {
+			return nums[l]
+		}
+		mid := (l+r)/2
+		// 加=号是因为mid可能和l相等
+		if nums[l] <= nums[mid] {
+			l = mid+1
+		}else{
+			r = mid
+		}
+	}
+	return nums[l]
+	*/
+
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+	l,r := 0,n-1
+	for l < r {
+		mid := (r+l)/2
+		// 加=号是因为mid可能和l相等
+		if nums[mid] < nums[r] {
+			r = mid
+		}else{
+			l = mid+1
+		}
+	}
+	return nums[l]
+
 }
 // @lc code=end
 
