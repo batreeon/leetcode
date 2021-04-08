@@ -38,6 +38,8 @@ func networkDelayTime(times [][]int, n int, k int) int {
 				}
 			}
 		}
+
+		// 有的点无法到达
 		if minV == 0 && len(notseen) > 0 {
 			return -1
 		}
