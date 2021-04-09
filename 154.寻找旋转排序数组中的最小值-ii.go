@@ -6,9 +6,11 @@
 
 // @lc code=start
 package main
-import "sort"
+// import "sort"
 
 func findMin(nums []int) int {
+
+	/*
 	n := len(nums)
 	if n == 1 {
 		return nums[0]
@@ -34,6 +36,24 @@ func findMin(nums []int) int {
 	return nums[l]
 	// 2201
 	// 3313
+	*/
+
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+	l,r := 0,n-1
+	for l < r {
+		mid := (l+r)/2
+		if nums[mid] == nums[r] {
+			r--
+		}else if nums[mid] < nums[r] {
+			r = mid
+		}else{
+			l = mid+1
+		}
+	}
+	return nums[l]
 }
 // @lc code=end
 
