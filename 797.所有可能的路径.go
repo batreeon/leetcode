@@ -6,6 +6,8 @@
 
 // @lc code=start
 func allPathsSourceTarget(graph [][]int) [][]int {
+
+	/*
 	n := len(graph)
 	// 当前遍历路径下是否已经走过了
 	seen := make([]bool,n)
@@ -46,6 +48,30 @@ func allPathsSourceTarget(graph [][]int) [][]int {
 
 	backtrack([]int{0})
 	return result
+	*/
+	
+	// 题目是有向无环图,则可以用递归
+	// 但最后的成绩比我用回溯差远了
+	n := len(graph)
+
+	var recur func(v int) [][]int 
+	recur = func(v int) [][]int {
+		res := [][]int{}
+		if v == n-1 {
+			res = append(res,[]int{v})
+			return res
+		}
+		for _,next := range graph[v] {
+			for _,path := range recur(next) {
+				temp := []int{v}
+				temp = append(temp,path...)
+				res = append(res,temp)
+			}
+		}
+		return res
+	}
+
+	return recur(0)
 }
 // @lc code=end
 
