@@ -6,39 +6,50 @@
 
 // @lc code=start
 func maxDistance(grid [][]int) int {
+	// 尝试用bfs，先找到所有距陆地距离为1的地点，然后用这些地点继续做更新
+	pos := [][]int{}
 	visited := map[int]bool{}
-	visitedNum := 0
-	stack := []int{}
 	r,c := len(grid),len(grid[0])
 	for i := 0 ; i < r ; i++ {
 		for j := 0 ; j < c ; j++ {
 			if grid[i][j] == 1 {
-				grid[i][j] = 0
-				stack = append(stack,i*c+j)
 				visited[i*c+j] = true
-				visited++
+				pos = append(pos,[]int{i,j})
 			}
 		}
 	}
-	if visited == 0 || visited == 1 {
+	if len(pos) == 0 || len(pos) == r*c {
 		return -1
 	}
-	l := len(stack)
-	ori := [][]int{
-		[]int{-1,0},
-		[]int{0,-1},
-		[]int{0,1},
-		[]int{1,0},
-	}
-	for i := 0 ; i < l ; i++ {
-		x,y := stack[i]/c,stack[i]%c
-		for j := 0 ; j < 4 ; j++ {
-			newX,newY := x+ori[j][0],y+ori[j][1]
-			if _,ok := visited[newX*c+r] ; !ok {
-				grid[newX][newY] = grid[]
+
+	ori := make([][]int,4)
+	ori[0] = []int{-1,0}
+	ori[1] = []int{0,-1}
+	ori[2] = []int{0,1}
+	ori[3] = []int{1,0}
+
+	dis := 0
+	for {
+		l := len(pos)
+		dis++
+		for i := 0 ; i < l ; i++ {
+			x,y := pos[i][0],pos[i][1]
+			for _,orientation := range ori {
+				newx,newy := x+orientation[0],y+orientation[1]
+				if newx >= 0 && newx < r && newy >= 0 && newy < c && !visited[newx*c+newy] {
+					visited[newx*c+newy] = true
+					// grid[newx][newy] = dis
+					if len(visited) == r*c {
+						return dis
+					}
+					pos = append(pos,[]int{newx,newy})
+				}
 			}
 		}
+		pos = pos[l:]
 	}
+
+	return -1
 }
 // @lc code=end
 
