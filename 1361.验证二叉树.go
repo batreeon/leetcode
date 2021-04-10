@@ -6,7 +6,9 @@
 
 // @lc code=start
 func validateBinaryTreeNodes(n int, leftChild []int, rightChild []int) bool {
+	// 判断入度
 	in := make([]int,n)
+	// 记录节点颜色，默认未标色
 	color := make([]int,n)
 	colorNum := 0
 
