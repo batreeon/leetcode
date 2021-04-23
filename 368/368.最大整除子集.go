@@ -10,6 +10,7 @@ package main
 import "sort"
 
 func largestDivisibleSubset(nums []int) []int {
+	/*
 	sort.Ints(nums)
 	n := len(nums)
 	visited := make([]int,n)
@@ -51,6 +52,49 @@ func largestDivisibleSubset(nums []int) []int {
 	}
 	backtrack([]int{},0)
 	return result[:length]
+
+	*/
+
+	// 看了答案，要用dp啊
+
+
+	n := len(nums)
+	parent := make([]int,n)
+	dp := make([]int,n)
+	dp[0] = 1
+
+	maxindex := 0
+	sort.Ints(nums)
+	for i := 1 ; i < n ; i++ {
+		dp[i] = 1
+		parentindex := -1
+		for j := i-1 ; j >= 0 ; j-- {
+			if nums[i] % nums[j] == 0 {
+				if parentindex == -1 {
+					parentindex = j
+				}else if dp[j] > dp[parentindex] {
+					parentindex = j
+				}
+			}
+		}
+		parent[i] = parentindex
+		if parentindex != -1 {
+			dp[i] = dp[parentindex] + 1
+		}
+		
+		if dp[i] > dp[maxindex] {
+			maxindex = i
+		}
+	}
+
+	result := make([]int,dp[maxindex])
+
+	for i := len(result)-1 ; i >= 0	; i-- {
+		result[i] = nums[maxindex]
+		maxindex = parent[maxindex]
+	}
+
+	return result
 }
 // @lc code=end
 

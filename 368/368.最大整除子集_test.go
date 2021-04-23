@@ -26,9 +26,9 @@ func Test_largestDivisibleSubset(t *testing.T) {
 		{
 			"1",
 			args{
-				[]int{1,2,3,4,6,8},
+				[]int{1,2,4,8},
 			},
-			[]int{1,2},//或者[]int{1,3},
+			[]int{1,2,4,8},//或者[]int{1,3},
 		},
 	}
 	for _, tt := range tests {
