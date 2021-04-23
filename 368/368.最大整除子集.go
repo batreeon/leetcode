@@ -59,7 +59,10 @@ func largestDivisibleSubset(nums []int) []int {
 
 
 	n := len(nums)
+
+	// 记录前一个元素下标
 	parent := make([]int,n)
+	// 记录子集长度
 	dp := make([]int,n)
 	dp[0] = 1
 
@@ -67,21 +70,20 @@ func largestDivisibleSubset(nums []int) []int {
 	sort.Ints(nums)
 	for i := 1 ; i < n ; i++ {
 		dp[i] = 1
-		parentindex := -1
+		parent[i] = i
 		for j := i-1 ; j >= 0 ; j-- {
 			if nums[i] % nums[j] == 0 {
-				if parentindex == -1 {
-					parentindex = j
-				}else if dp[j] > dp[parentindex] {
-					parentindex = j
+				if parent[i] == i {
+					parent[i] = j
+				}else if dp[j] > dp[parent[i]] {
+					parent[i] = j
 				}
 			}
 		}
-		parent[i] = parentindex
-		if parentindex != -1 {
-			dp[i] = dp[parentindex] + 1
+		if parent[i] != -1 {
+			dp[i] = dp[parent[i]] + 1
 		}
-		
+
 		if dp[i] > dp[maxindex] {
 			maxindex = i
 		}
