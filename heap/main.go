@@ -1,5 +1,6 @@
 package main
 
+// 算法导论最大堆实现
 import "fmt"
 
 type heap []int
@@ -63,16 +64,16 @@ func (h heap) HeapSort() []int {
 // 下面两个要用*heap，因为要改变源结构
 func (h *heap) Pop() int {
 	pop := (*h)[0]
-	(*h)[0],(*h)[len(*h)-1] = (*h)[len(*h)-1],(*h)[0]
+	(*h)[0], (*h)[len(*h)-1] = (*h)[len(*h)-1], (*h)[0]
 	(*h) = (*h)[:len(*h)-1]
 	(*h).MaxHeapify(0)
 	return pop
 }
 
 func (h *heap) Push(x int) {
-	(*h) = append((*h),x)
-	for i := len(*h)-1 ; i > 0 && (*h)[(*h).Parent(i)] < (*h)[i] ; {
-		(*h)[i],(*h)[(*h).Parent(i)] = (*h)[(*h).Parent(i)],(*h)[i]
+	(*h) = append((*h), x)
+	for i := len(*h) - 1; i > 0 && (*h)[(*h).Parent(i)] < (*h)[i]; {
+		(*h)[i], (*h)[(*h).Parent(i)] = (*h)[(*h).Parent(i)], (*h)[i]
 		i = (*h).Parent(i)
 	}
 }
@@ -86,7 +87,8 @@ func main() {
 	for len(h) > 0 {
 		fmt.Println(h.Pop())
 	}
-	
+
 	// fmt.Println(h.HeapSort())
+	// HeapSort后，h就是有序序列，就不再是最大堆了
 	// fmt.Println(h)	//h本身并没有被改变
 }
