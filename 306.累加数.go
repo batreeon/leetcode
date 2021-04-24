@@ -24,6 +24,7 @@ func isAdditiveNumber(num string) bool {
 			return true
 		}
 
+		// 因为使用字符串匹配的，不用再单独考虑开头为0的情况了
 		if strings.Index(s,pre2str) != 0 {
 			return false
 		}else{
@@ -36,10 +37,12 @@ func isAdditiveNumber(num string) bool {
 
 	n := len(num)
 	for i := 1 ; i <= n-2 ; i++ {
+		// 0开头只能是单0
 		if num[0] == '0' && i > 1 {
 			break
 		}
 		for j := i+1 ; j <= n-1 ; j++ {
+			// 0开头只能是单0
 			if num[i] == '0' && j != i+1 {
 				break
 			}
