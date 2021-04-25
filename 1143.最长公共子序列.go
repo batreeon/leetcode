@@ -17,7 +17,6 @@ func longestCommonSubsequence(text1 string, text2 string) int {
 		}
 		return y
 	}
-	result := 0
 	for i := 0 ; i < l1 ; i++ {
 		curf := make([]int,l2+1)
 		for j := 1 ; j <= l2 ; j++ {
@@ -26,11 +25,10 @@ func longestCommonSubsequence(text1 string, text2 string) int {
 			}else{
 				curf[j] = max(f[j],curf[j-1])
 			}
-			result = max(result,curf[j])
 		}
 		copy(f,curf)
 	}
-	return result
+	return f[l2]
 	// 为什么不能用一个f：
 	// abcba
 	// abcbcba
