@@ -28,15 +28,19 @@ func maxSumSubmatrix(matrix [][]int, k int) int {
 			for l := 0 ; l < c ; l++ {
 				sum[l] += matrix[j][l]//更新累加值
 			}
+			// 为什么初始化包含一个0，是为了那些只包含第一列的吧
 			sumSet := []int{0}
 			s := 0
 			// 找到最大值
 			for _,v := range sum {
 				s += v
+				// sumSet存的就是前缀和，s是下一个前缀和，s-sumSet[i]计算的就是区域和
+				// sumSet[i] >= s-k} 即s-sumSet[i] <= k
 				lb := sort.Search(len(sumSet),func(i int) bool {return sumSet[i] >= s-k})
 				if lb != len(sumSet) {
 					result = max(result,s-sumSet[lb])
 				}
+				// 维护前缀和序列
 				sumSet = append(sumSet,s)
 				if !sort.IsSorted(sort.IntSlice(sumSet)) {
 					sort.Ints(sumSet)
