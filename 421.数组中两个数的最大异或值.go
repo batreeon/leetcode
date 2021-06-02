@@ -6,6 +6,7 @@
 
 // @lc code=start
 func findMaximumXOR(nums []int) int {
+	/*
 	const M int = 3000010
 	son := make([][2]int,M)
 	var idx int
@@ -54,6 +55,53 @@ func findMaximumXOR(nums []int) int {
 		res = max(res,query(nums[i]))
 	}
 	return res
+	*/
+
+	const N int = 1e6
+	// 这个应该是数据个数吧
+	trie := make([][2]int,N)
+	idx := 0
+	add := func(x int){
+		p := 0
+		for i := 31 ; i >= 0 ; i-- {
+			u := (x >> i)&1
+			if trie[p][u] == 0 {
+				idx++
+				trie[p][u] = idx
+			}
+			p = trie[p][u]
+		}
+	}
+	getVal := func(x int) int {
+		ans := 0
+		p := 0
+		for i := 31 ; i >= 0 ; i-- {
+			a := (x>>i)&1
+			b := 1-a
+			if trie[p][b] != 0 {
+				ans |= b<<i
+				p = trie[p][b]
+			}else{
+				ans |= a<<i
+				p = trie[p][a]
+			}
+		}
+		return ans
+	}
+
+	ans := 0
+	for _,num := range nums {
+		add(num)
+		query := getVal(num)
+		ans = max(ans,num^query)
+	}
+	return ans
+}
+func max(x,y int) int {
+	if x > y {
+		return x
+	}
+	return y
 }
 // @lc code=end
 
