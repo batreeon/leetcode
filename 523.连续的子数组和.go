@@ -6,6 +6,7 @@
 
 // @lc code=start
 func checkSubarraySum(nums []int, k int) bool {
+	/*
 	if len(nums) < 2 {
 		return false
 	}
@@ -36,6 +37,23 @@ func checkSubarraySum(nums []int, k int) bool {
 				return true
 			}
 			sumright -= k
+		}
+	}
+	return false
+	*/
+
+	// sum[j]-sum[i] = n*k
+	// 那么sum[j]/k - sum[i]/k = n
+	// 要使上述减法结果n位整数，那么sum[j],sum[i]分别对k求余的结果相等
+	sum := make([]int,len(nums)+1)
+	for i := 0 ; i < len(nums) ; i++ {
+		sum[i+1] = sum[i] + nums[i]
+	}
+	m := make(map[int]bool)
+	for i := 2 ; i < len(sum) ; i++ {
+		m[sum[i-2]%k] = true
+		if m[sum[i]%k] {
+			return true
 		}
 	}
 	return false
