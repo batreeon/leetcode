@@ -20,26 +20,33 @@ func Test_splitString(t *testing.T) {
 		want bool
 	}{
 		// TODO: Add test cases.
-		// {
-		// 	"1",
-		// 	args{
-		// 		string("050043"),
-		// 	},
-		// 	true,
-		// },
-		// {
-		// 	"2",
-		// 	args{
-		// 		string("4771447713"),
-		// 	},
-		// 	true,
-		// },
+		{
+			"1",
+			args{
+				string("050043"),
+			},
+			true,
+		},
+		{
+			"2",
+			args{
+				string("4771447713"),
+			},
+			true,
+		},
 		{
 			"3",
 			args{
 				string("0166537080"),
 			},
 			false,
+		},
+		{
+			"4",
+			args{
+				string("10"),
+			},
+			true,
 		},
 	}
 	for _, tt := range tests {
