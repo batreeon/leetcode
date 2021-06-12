@@ -60,11 +60,7 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 				continue
 			}
 			// 源f[j]记录着dp[i-1][j],现f[j-1]记录着dp[i][j-1]
-
-			// 下面两个if效果是一样的，如果obstacleGrid[i][j-1]=1，
-			// 那么f[j-1]在上一步就置为0，f[j]就只能从上到下走到达，直接继承上一层的f[j]就行了
-			// if j >= 1 && obstacleGrid[i][j-1] != 1 {
-			if j >= 1 {
+			if j >= 1 && obstacleGrid[i][j-1] != 1 {
 				f[j] = f[j] + f[j-1]
 			}
 		}
