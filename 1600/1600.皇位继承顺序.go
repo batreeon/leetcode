@@ -5,10 +5,10 @@
  */
 
 // @lc code=start
-package main
+// package main
 // import "fmt"
 
-
+/*
 type ThroneInheritance struct {
 	king string
 	children map[string][]string
@@ -87,6 +87,7 @@ func (this *ThroneInheritance) GetInheritanceOrder() []string {
 	}
 	return result
 }
+*/
 
 // func main() {
 // 	t := Constructor("king")
@@ -100,6 +101,62 @@ func (this *ThroneInheritance) GetInheritanceOrder() []string {
 // 	fmt.Println(t.GetInheritanceOrder())
 // }
 
+
+/*
+// 宫水三叶，但这golang写不出来，佛了，主要是struct嵌套，
+// 可以换成指针，还有就是判断条件last != nil这一步无法进行啊，佛了
+type Node struct {
+	name string
+	next Node
+	last Node //最后一个儿子
+	death bool
+}
+
+type ThroneInheritance struct {
+	nodem map[string]Node
+	head,tail Node
+}
+
+
+func Constructor(kingName string) ThroneInheritance {
+	return ThroneInheritance{
+		nodem:map[string]Node{},
+	}
+}
+
+
+func (this *ThroneInheritance) Birth(parentName string, childName string)  {
+	node := Node{name:childName}
+	this.nodem[childName] = node
+	pnode := this.nodem[parentName]
+	tmp := pnode
+	if tmp.last != nil {
+		tmp = tmp.last
+	}
+	node.next = tmp.next
+	tmp.next = node
+	pnode.last = node
+}
+
+
+func (this *ThroneInheritance) Death(name string)  {
+	node := this.nodem[name]
+	node.death = true
+}
+
+
+func (this *ThroneInheritance) GetInheritanceOrder() []string {
+	result := []string{}
+	p := this.head
+	for p != nil {
+		if !p.death {
+			result = append(result,p)
+			p = p.next
+		}
+	}
+	return result
+}
+
 /**
  * Your ThroneInheritance object will be instantiated and called as such:
  * obj := Constructor(kingName);
@@ -107,5 +164,45 @@ func (this *ThroneInheritance) GetInheritanceOrder() []string {
  * obj.Death(name);
  * param_3 := obj.GetInheritanceOrder();
  */
-// @lc code=end
 
+ type ThroneInheritance struct {
+	king string
+	children map[string][]string
+	death map[string]bool
+}
+
+
+func Constructor(kingName string) ThroneInheritance {
+	return ThroneInheritance{
+		kingName,
+		make(map[string][]string),
+		make(map[string]bool),
+	}
+}
+
+
+func (this *ThroneInheritance) Birth(parentName string, childName string)  {
+	this.children[parentName] = append(this.children[parentName],childName)
+}
+
+
+func (this *ThroneInheritance) Death(name string)  {
+	this.death[name] = true
+}
+
+
+func (this *ThroneInheritance) GetInheritanceOrder() []string {
+	result := []string{}
+	var preorder func(name string)
+	preorder = func(name string) {
+		if !this.death[name] {
+			result = append(result,name)
+		}
+		for _,child := range this.children[name] {
+			preorder(child)
+		}
+	}
+	preorder(this.king)
+	return result
+}
+// @lc code=end
