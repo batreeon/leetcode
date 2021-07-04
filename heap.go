@@ -12,8 +12,9 @@ func (h *bigHeap) Push(x interface{}) {
 	*h = append(*h,x.(int))
 }
 func (h *bigHeap) Pop() interface{} {
-	n := len(*h)
-	x := (*h)[n-1]
+	old := *h
+	n := len(old)
+	x := old[n-1]
 	*h = (*h)[:n-1]
 	return x
 }
@@ -35,8 +36,9 @@ func (h *smallHeap) Push(x interface{}) {
 	*h = append(*h,x.(int))
 }
 func (h *smallHeap) Pop() interface{} {
-	n := len(*h)
-	x := (*h)[n-1]
+	old := *h
+	n := len(old)
+	x := old[n-1]
 	*h = (*h)[:n-1]
 	return x
 }
