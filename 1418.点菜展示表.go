@@ -12,14 +12,13 @@ import (
 	"strconv"
 )
 
-
 func displayTable(orders [][]string) [][]string {
 	foods := []string{}
 	foodsVisited := map[string]bool{}
 	tables := []string{}
 	tablesVisited := map[string]bool{}
 	m := map[string]map[string]int{}
-	
+
 	for _,order := range orders {
 		if !foodsVisited[order[2]] {
 			foodsVisited[order[2]] = true
