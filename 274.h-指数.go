@@ -9,6 +9,7 @@ package main
 import "sort"
 
 func hIndex(citations []int) int {
+	/*
 	sort.Sort(sort.Reverse(sort.IntSlice(citations)))
 	result := 0
 	for i := 0 ; i < len(citations) ; i++ {
@@ -24,6 +25,38 @@ func hIndex(citations []int) int {
 	}
 
 	return result
+	*/
+	/*
+	sort.Slice(citations,func(i,j int) bool {return citations[i] > citations[j]})
+    l,r := 0,len(citations)-1
+    for l < r {
+        mid := ((l+r) >> 1)+1
+        if citations[mid] >= mid+1 {
+            l = mid
+        }else{
+            r = mid-1
+        }
+    }
+    if citations[l] == 0 {
+        return 0
+    }
+    return l+1
+	*/
+	sort.Ints(citations)
+	n := len(citations)
+    l,r := 0,n-1
+    for l < r {
+        mid := (l+r) >> 1
+        if citations[mid] >= n-mid {
+            r = mid
+        }else{
+            l = mid+1
+        }
+    }
+    if citations[r] == 0 {
+        return 0
+    }
+    return n-r
 }
 // @lc code=end
 
