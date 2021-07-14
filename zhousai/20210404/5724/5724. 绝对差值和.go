@@ -57,7 +57,10 @@ func minAbsoluteSumDiff(nums1 []int, nums2 []int) int {
 	for i, num1 := range nums1 {
 		diff[i] = abs(num1 - nums2[i])
 		// 每加一次都求一次余
-		sumdiff = int(int64(sumdiff + diff[i])%mod)
+		sumdiff = sumdiff + diff[i]
+		if sumdiff > int(mod) {
+			sumdiff -= int(mod)
+		}
 	}
 	index := make([]int, n)
 	for i, _ := range index {
@@ -88,31 +91,34 @@ func minAbsoluteSumDiff(nums1 []int, nums2 []int) int {
 	// 遍历每一位nums[i]，找出该位值的最大下降，并维护maxChange
 	for i := 0 ; i < n ; i++ {
 		// 没有下降空间了
-		if diff[sortedindex.index[i]] == 0 {
+		if diff[i] == 0 {
 			continue
 		}
 		// 找出nums2[i]在排序后的nums1中的位置，标准库使用了二分查找
 		nearindex := sort.Search(n,func(ii int) bool {
-			return nums2[sortedindex.index[i]] <= sortedindex.nums[ii]
+			return nums2[i] <= sortedindex.nums[ii]
 		})
 		if nearindex == n {
 			// nums2[i]比nums1所有值都大
-			change := diff[sortedindex.index[i]] - min(diff[sortedindex.index[i]],abs(nums2[sortedindex.index[i]]-sortedindex.nums[n-1]))
+			change := diff[i] - min(diff[i],abs(nums2[i]-sortedindex.nums[n-1]))
 			if change > maxChange {
 				maxChange = change
 			}
 		}else if nearindex == 0 {
 			// nums2[i]比nums1所有值都小
-			change := diff[sortedindex.index[i]] - min(diff[sortedindex.index[i]],abs(nums2[sortedindex.index[i]]-sortedindex.nums[0]))
+			change := diff[i] - min(diff[i],abs(nums2[i]-sortedindex.nums[0]))
 			if change > maxChange {
 				maxChange = change
 			}
 		}else {
-			change := diff[sortedindex.index[i]] - min(diff[sortedindex.index[i]],min(abs(nums2[sortedindex.index[i]]-sortedindex.nums[nearindex]),abs(nums2[sortedindex.index[i]]-sortedindex.nums[nearindex-1])))
+			change := diff[i] - min(diff[i],min(abs(nums2[i]-sortedindex.nums[nearindex]),abs(nums2[i]-sortedindex.nums[nearindex-1])))
 			if change > maxChange {
 				maxChange = change
 			}
 		}
+	}
+	if sumdiff < maxChange {
+		return sumdiff-maxChange+int(mod)
 	}
 	return sumdiff-maxChange
 }
