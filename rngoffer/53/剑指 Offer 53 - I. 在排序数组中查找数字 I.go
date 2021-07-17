@@ -19,6 +19,8 @@ func search(nums []int, target int) int {
 	high := sort.Search(len(nums),func(i int) bool {return nums[i] > target})
 	return high-low
 	*/
+
+	/*
 	high := sort.Search(len(nums),func(i int) bool {return nums[i] > target})
 	var low int
 	if high == 0 {
@@ -32,4 +34,12 @@ func search(nums []int, target int) int {
 		}
 	}
 	return high-low
+	*/
+	
+	if len(nums) == 0 {
+        return 0
+    }
+	high := sort.Search(len(nums),func(i int) bool {return nums[i] > target})
+    low := sort.Search(len(nums),func(i int) bool {return nums[i] > target-1})
+    return high-low
 }
