@@ -26,9 +26,10 @@ func copyRandomList(head *Node) *Node {
 	for pNode := head ; pNode != nil ; {
 		if pNode.Random != nil {
 			pNode.Next.Random = pNode.Random.Next
-		}else{
-			pNode.Next.Random = pNode.Random
 		}
+		// }else{
+		// 	pNode.Next.Random = pNode.Random
+		// }
 		pNode = pNode.Next.Next
 	}
 	hhead := head.Next
