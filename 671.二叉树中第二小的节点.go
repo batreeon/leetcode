@@ -24,7 +24,7 @@ func findSecondMinimumValue(root *TreeNode) int {
 	var dfs func(r *TreeNode,rootV int)
 	dfs = func(r *TreeNode,rootV int) {
 		if r == nil {
-			retrun
+			return
 		}
 		if r.Val > rootV {
 			if result == -1 {
@@ -32,6 +32,10 @@ func findSecondMinimumValue(root *TreeNode) int {
 			}else{
 				result = min(result,r.Val)
 			}
+			// 找到一个后面的肯定不会更小了
+			// result == -1时就是递归分支中第一个遇到比根节点更小的
+			// result != -1就是，其他递归分支里面已经遇到过比根节点更小的了，当前分支也遇到了一个比根节点更小的
+			// 我们需要比较哪个分支里的更小
 			return
 		}
 		dfs(r.Left,rootV)
