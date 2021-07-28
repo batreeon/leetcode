@@ -1,7 +1,5 @@
 package main
 
-import "math"
-
 func cuttingRope(n int) int {
 	mod := int(1e9+7)
 	if n <= 3 {
