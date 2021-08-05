@@ -83,6 +83,7 @@ func eventualSafeNodes(graph [][]int) []int {
 	return result
 	*/
 
+	/*
 	n := len(graph)
 	out := make([]int,n)
 	pre := make([][]int,n)
@@ -95,6 +96,40 @@ func eventualSafeNodes(graph [][]int) []int {
 		}
 	}
 
+	for i,outNum := range out {
+		if outNum == 0 {
+			order = append(order,i)
+		}
+	}
+
+	for i := 0 ; i < len(order) ; i++ {
+		del := order[i]
+		for _,preNode := range pre[del] {
+			out[preNode]--
+			if out[preNode] == 0 {
+				order = append(order,preNode)
+			}
+		}
+	}
+	sort.Ints(order)
+	return order
+	*/
+
+	// 相当于进行了一个拓扑排序
+	n := len(graph)
+	// 记录每个点的出度
+	out := make([]int,n)
+	// 记录每个点的前导
+	pre := make([][]int,n)
+	// 记录已经安全的边，也就是出度为零的
+	order := []int{}
+
+	for i,nextV := range graph {
+		out[i] = len(nextV)
+		for _,v := range nextV {
+			pre[v] = append(pre[v],i)
+		}
+	}
 	for i,outNum := range out {
 		if outNum == 0 {
 			order = append(order,i)
