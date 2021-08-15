@@ -9,10 +9,11 @@ type heap []int
 // 获取下标i的父亲，左儿子，右儿子
 func (h heap) Parent(i int) int {
 	parent := (i+1)/2 - 1
-	if parent >= 0 {
-		return parent
-	}
-	return -1
+	return parent
+	// if parent >= 0 {
+	// 	return parent
+	// }
+	// return -1
 }
 
 func (h heap) Left(i int) int {
@@ -26,9 +27,10 @@ func (h heap) Right(i int) int {
 }
 
 func (h heap) MaxHeapify(i int) {
+	// 前提，节点i的左右两棵子树都符合堆的特性
 	l, r := h.Left(i), h.Right(i)
 	largest := i
-	if l < len(h) && h[l] > h[i] {
+	if l < len(h) && h[l] > h[largest] {
 		largest = l
 	}
 	if r < len(h) && h[r] > h[largest] {
@@ -51,7 +53,7 @@ func (h heap) BuildMaxHeap() {
 func (h heap) HeapSort() []int {
 	h.BuildMaxHeap()
 	result := make([]int, len(h))
-	for i := len(h) - 1; i >= 0; i-- {
+	for i := len(result) - 1; i >= 0; i-- {
 		result[i] = h[0]
 		h[0], h[i] = h[i], h[0]
 		h = h[:len(h)-1]
