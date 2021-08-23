@@ -13,15 +13,15 @@ func getMaximumGenerated(n int) int {
 	if n < len(maxNums) {return maxNums[n]}
 	l := len(maxNums)
 	for i := l ; i <= n ; i++ {
+		var numi int
 		if i&1 == 0 {
-			numi := nums[i/2]
+			numi = nums[i/2]
 			nums = append(nums,numi)
-			maxNums = append(maxNums,max(maxNums[i-1],numi))
 		}else{
-			numi := nums[i/2]+nums[i/2+1]
+			numi = nums[i/2]+nums[i/2+1]
 			nums = append(nums,numi)
-			maxNums = append(maxNums,max(maxNums[i-1],numi))
 		}
+		maxNums = append(maxNums,max(maxNums[i-1],numi))
 	}
 	return maxNums[n]
 }
