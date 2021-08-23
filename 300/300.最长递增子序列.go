@@ -6,6 +6,8 @@
 
 // @lc code=start
 package main
+
+import "sort"
 func lengthOfLIS(nums []int) int {
 	//动规
 	/*
@@ -32,6 +34,7 @@ func lengthOfLIS(nums []int) int {
 	return ans
 	*/
 
+	/*
 	//贪心加二分查找
 	//维护一个递增序列，使这个递增序列的最大值，是同长度递增序列中最小的，这就是贪心体现的地方
 	l := len(nums)
@@ -66,6 +69,21 @@ func lengthOfLIS(nums []int) int {
 		}
 	}
 	return ans
+	*/
+	n := len(nums)
+	if n == 0 {
+		return 0
+	}
+	res := []int{nums[0]}
+	for i := 1 ; i < n ; i++ {
+		if nums[i] > res[len(res)-1] {
+			res = append(res,nums[i])
+		}else{
+			idx := sort.Search(len(res),func(j int) bool {return res[j] >= nums[i]})
+			res[idx] = nums[i]
+		}
+	}
+	return len(res)
 }
 // @lc code=end
 
