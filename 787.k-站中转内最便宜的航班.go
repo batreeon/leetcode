@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// 与1928相似
 package main
 
 // 由题条件，价格不会超过INF
