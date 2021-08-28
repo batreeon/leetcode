@@ -103,6 +103,7 @@ func isValidBST(root *TreeNode) bool {
 	return iVBLeft(root.Left,root.Val) && iVBRight(root.Right,root.Val)
 	*/
 
+	/*
 	// 上面两种都有漏洞
 	// 不会遍历解法啊
 	var nums []int
@@ -124,6 +125,52 @@ func isValidBST(root *TreeNode) bool {
 		}
 	}
 	return true
+	*/
+
+	// 上面是只会根据中序遍历结果看是否有序。。。
+	return isvalidBST(root).valid
+
+}
+
+type Result struct{
+	max int
+	min int
+	valid bool
+}
+func isvalidBST(root *TreeNode) (result Result) {
+	// 一开始看这段代码时我疑问，result.valid什么时候会置false呢
+	// 其实返回参数已经初始化result了，它初始状态就是false,
+	// 只有我们判断root的两棵子树都符合二叉搜索树，并且root.Val，left.max,right.min大小满足要求时才会将result.valid置为true
+	// 或者root==nil，会将result.valid置为true
+	if root == nil {
+		// 空树自然是合法的二叉搜索树
+		// 并且以空树为子树也必定是合法的，因此该子树max为最小值，min为最大值 
+		// 使得以空树为子树的父节点值符合大于左子树的最大值，小于右子树的最小值
+		result.max = -1<<63
+		result.min = 1<<63-1
+		result.valid = true
+		return
+	}
+
+	left,right := isvalidBST(root.Left),isvalidBST(root.Right)
+	if left.max < root.Val && root.Val < right.min && left.valid && right.valid {
+		result.valid = true
+	}
+	result.max = max(root.Val,max(left.max,right.max))
+	result.min = min(root.Val,min(left.min,right.min))
+	return
+}
+func max(x,y int) int {
+	if x > y {
+		return x
+	}
+	return y
+}
+func min(x,y int) int {
+	if x < y {
+		return x
+	}
+	return y
 }
 // @lc code=end
 
