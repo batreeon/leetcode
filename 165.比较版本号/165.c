@@ -10,7 +10,8 @@
 #include <string.h>
 
 int compareVersion(char * version1, char * version2){
-    char v1s[500][500], v2s[500][500];
+    // 每个版本号都是32位整数，因此最长只有10位
+    char v1s[500][11], v2s[500][11];
 
     int i = 0;
     for (char *p = version1; *p; p++) {
