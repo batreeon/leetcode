@@ -2,9 +2,9 @@
 
 int main() {
     printf("hello world!\n");
-    char s[] = "A";
-    printf("%d\n",tolower(s[0])-'a');
-    putchar(tolower(s[0]));
+    char *s = "Ab";
+    printf("%d\n",tolower((s+1)[0])-'a');
+    putchar(tolower(s[1]));
     printf("\n");
 
     int i = 0;
