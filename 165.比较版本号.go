@@ -12,6 +12,7 @@ import (
 	"strings"
 )
 
+/*
 func compareVersion(version1 string, version2 string) int {
 	f := func(r rune)bool{
 		if r == rune('.') {
@@ -57,6 +58,40 @@ func compareVersion(version1 string, version2 string) int {
 		for i := maxIndex ; i < l2 ; i++ {
 			if strings.TrimLeftFunc(v2[i],isZero) != "" {
 				return -1
+			}
+		}
+	}
+	return 0
+}
+*/
+func compareVersion(version1 string, version2 string) int {
+	v1s,v2s := strings.Split(version1,"."),strings.Split(version2,".")
+	maxIndex := len(v1s)
+	if len(v2s) < maxIndex {
+		maxIndex = len(v2s)
+	}
+	for i := 0 ; i < maxIndex ; i++ {
+		num1,_ := strconv.Atoi(strings.TrimLeft(v1s[i],"0"))
+		num2,_ := strconv.Atoi(strings.TrimLeft(v2s[i],"0"))
+		if num1 < num2 {
+			return -1
+		}else if num1 > num2 {
+			return 1
+		}
+	}
+	if len(v1s) == len(v2s) {
+		return 0
+	}
+	if len(v1s) < len(v2s) {
+		for i := maxIndex ; i < len(v2s) ; i++ {
+			if strings.TrimLeft(v2s[i],"0") != "" {
+				return -1
+			}
+		}
+	}else{
+		for i := maxIndex ; i < len(v1s) ; i++ {
+			if strings.TrimLeft(v1s[i],"0") != "" {
+				return 1
 			}
 		}
 	}
