@@ -2,18 +2,14 @@ package main
 
 func countEval(s string, result int) int {
 	n := len(s)
-
 	dp0 := make([][]int,n/2+1)
 	dp1 := make([][]int,n/2+1)
 	for i := 0 ; i < n/2+1 ; i++ {
 		dp0[i] = make([]int,n/2+1)
-		if s[i*2] == '0' {
-			dp0[i][i] = 1
-		}
+		dp0[i][i] = int('1'-s[i*2])
+
 		dp1[i] = make([]int,n/2+1)
-		if s[i*2] == '1' {
-			dp1[i][i] = 1
-		}
+		dp1[i][i] = int(s[i*2]-'0')
 	}
 	for l := 2 ; l <= n/2+1 ; l++ {
 		for i := 0 ; i < n/2+1-l+1 ; i++ {
