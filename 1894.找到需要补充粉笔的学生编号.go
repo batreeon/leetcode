@@ -5,7 +5,14 @@
  */
 
 // @lc code=start
+package main
+
+import (
+	"sort"
+)
+
 func chalkReplacer(chalk []int, k int) int {
+	/*
 	n := len(chalk)
 	presum := make([]int,n+1)
 	for i := range chalk {
@@ -24,6 +31,18 @@ func chalkReplacer(chalk []int, k int) int {
 		}
 	}
 	return l-1
+	*/
+
+	n := len(chalk)
+	sum := make([]int,n)
+	sum[0] = chalk[0]
+	for i := 1 ; i < n ; i++ {
+		sum[i] = sum[i-1] + chalk[i]
+	}
+
+	k = k%sum[n-1]
+	idx := sort.Search(n,func(i int) bool {return sum[i] > k})
+	return idx
 }
 // @lc code=end
 
