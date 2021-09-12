@@ -56,6 +56,7 @@ func checkValidString(s string) bool {
 		return false
 	}
 	for i,j := 0,0 ; i < len(left) ; i,j = i+1,j+1 {
+		// 因为星号可能也能替换成空，因此左括号左边有星号也可能是合法的
 		for j < len(replace) && left[i] > replace[j] {
 			j++
 		}
