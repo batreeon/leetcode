@@ -18,33 +18,34 @@ func findAnagrams(s string, p string) []int {
 	l, r := 0, 0
 	ms := map[byte]int{}
 	result := []int{}
+
+	// 这个for循环判断是要注意，s[l]还没有加入ms中
 	for l + len(p) - 1  < len(s) {
 		for r - l + 1 <= len(p) {
+			// 将s中len(p)长度的子串加入到ms中
 			ms[s[r]]++
 			r++
 		}
 		if len(ms) == len(mp) {
+			// 如果两个map长度相等在判断是否完全一致
 			if equal(ms, mp) {
 				result = append(result, l)
 			}
+		}
+
+		// 无论是否完全一致，是s[l]都需要丢弃了，因为我们已经检查了以s[l]开头的子串
+		ms[s[l]]--
+		if ms[s[l]] == 0 {
+			delete(ms, s[l])
+		}
+		l++
+
+		for len(ms) > len(mp) {
 			ms[s[l]]--
 			if ms[s[l]] == 0 {
 				delete(ms, s[l])
 			}
 			l++
-		}else{
-			ms[s[l]]--
-			if ms[s[l]] == 0 {
-				delete(ms, s[l])
-			}
-			l++
-			for len(ms) > len(mp) {
-				ms[s[l]]--
-				if ms[s[l]] == 0 {
-					delete(ms, s[l])
-				}
-				l++
-			}
 		}
 	}
 	return result
