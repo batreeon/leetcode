@@ -46,7 +46,7 @@ func btreeGameWinningMove(root *TreeNode, n int, x int) bool {
 	}
 
 	s, m, b := sortInts([]int{subleft, subright, n - 1 - subleft - subright})
-	if b > m+s+1 {
+	if b > m+s {
 		return true
 	}
 	return false
