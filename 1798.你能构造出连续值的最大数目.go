@@ -14,13 +14,10 @@ func getMaximumConsecutive(coins []int) int {
 	// 如果y <= x+1 , 那么新的范围为[0, x+y]
 	// 所以为了连续，我们每次取coins中最小的数；如果最小的数都不能连续，那就可以返回了
 	
-	// x = 0
 	x := 0
 	sort.Ints(coins)
 	for _, y := range coins {
-		// y <= x+1
 		if y <= x+1 {
-			// x+y
 			x = x + y
 		}else{
 			break
