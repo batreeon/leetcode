@@ -70,6 +70,9 @@ func minimumMoves(grid [][]int) int {
 			}
 		}
 
+		// 这里不直接用range statusv
+		// 是因为上面 在遍历statush过程中会往statucv中添加新元素
+		// 添加的新元素应该留着下一次遍历
 		for iv := 0; iv < lv; iv++ {
 			sv := statusv[iv]
 			x, y := sv[0], sv[1]
