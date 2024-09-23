@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// 看的答案，维护j左侧最大的 vi + i
 function maxScoreSightseeingPair(values: number[]): number {
     let maxviaddi = 0;
     let result = 0;
