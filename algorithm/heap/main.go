@@ -51,6 +51,7 @@ func (h heap) BuildMaxHeap() {
 	}
 }
 
+// 没必要这样写，一直pop就可以了
 func (h heap) HeapSort() []int {
 	h.BuildMaxHeap()
 	result := make([]int, len(h))
