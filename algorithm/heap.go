@@ -1,3 +1,5 @@
+package algorithm
+
 type bigHeap []int
 func (h bigHeap) Len() int {
 	return len(h)

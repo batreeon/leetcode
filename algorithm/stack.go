@@ -1,3 +1,5 @@
+package algorithm
+
 type stack struct {
 	nums []int
 	l    int
