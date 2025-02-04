@@ -21,6 +21,7 @@ func nthUglyNumber(n int) int {
 		}
 		next := min(2*res[index2],min(3*res[index3],5*res[index5]))
 		res = append(res,next)
+		// 下面不应该用不等号<=，而应该用==，因为不可能出现<的情况
 		for 2*res[index2] <= next {
 			index2++
 		}
