@@ -5,7 +5,7 @@
  */
 
 // @lc code=start
-// 丑数
+// 丑数，轮流考察三个数
 function isUgly(n: number): boolean {
     if (n <= 0) {
         return false;
