@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// 丑数，和三个数有关的题
 function nthUglyNumber(n: number): number {
     let res: number[] = [1];
     let i2 = 0, i3 = 0, i5 = 0;
