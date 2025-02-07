@@ -31,10 +31,11 @@ func rob(nums []int) int {
 	// return f[0]
 
 	// 不用数组了，反正只会用到f[i-1]和f[i-2]这两项
+	// 不用反过来写
 	fi2 := nums[n-1]
 	fi1 := max(nums[n-2],fi2)
 	for i := n-3 ; i >= 0 ; i-- {
-		f := max(fi1,nums[i]+fi2)
+		f := max(fi1,nums[i]+fi2) // max中的两个值，分别代表不偷第i家 / 偷第i家
 		fi1,fi2 = f,fi1
 	}
 	return fi1
