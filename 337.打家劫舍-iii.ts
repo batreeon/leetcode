@@ -18,7 +18,7 @@
  *     }
  * }
  */
-
+// 树形动态规划
 function rob(root: TreeNode | null): number {
     return Math.max(...dfs(root));
 };

@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// 动态规划的变种
 function rob(nums: number[]): number {
     if (nums.length <= 2) {
         return Math.max(...nums);
