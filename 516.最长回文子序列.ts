@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// 字符串，动态规划
 function longestPalindromeSubseq(s: string): number {
     let n = s.length
     let dp: number[][] = new Array(n).fill(0).map(() => new Array(n).fill(0));
