@@ -5,6 +5,7 @@
  */
 
 // @lc code=start
+// 字符串动态规划
 func minimumDeleteSum(s1 string, s2 string) int {
     n1 := len(s1)
 	n2 := len(s2)
