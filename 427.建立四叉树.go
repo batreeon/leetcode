@@ -16,7 +16,7 @@
  *     BottomRight *Node
  * }
  */
-
+// 前缀和，四叉树，就硬写
 func construct(grid [][]int) *Node {
     n := len(grid)
 	sumgrid := make([][]int, n)
