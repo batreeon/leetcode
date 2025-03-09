@@ -12,8 +12,7 @@ import (
 	"strconv"
 )
 
-type hm string
-
+// hm1 > hm2
 func Lower(hm1, hm2 string) bool {
 	h1 := hm1[:2]
 	m1 := hm1[3:]
@@ -28,52 +27,43 @@ func Lower(hm1, hm2 string) bool {
 	return false
 }
 
+// hm1 > hm2
 func duration(hm1, hm2 string) int {
-	h1,_ := strconv.Atoi(hm1[:2])
-	m1,_ := strconv.Atoi(hm1[3:])
-	h2,_ := strconv.Atoi(hm2[:2])
-	m2,_ := strconv.Atoi(hm2[3:])
+	h1, _ := strconv.Atoi(hm1[:2])
+	m1, _ := strconv.Atoi(hm1[3:])
+	h2, _ := strconv.Atoi(hm2[:2])
+	m2, _ := strconv.Atoi(hm2[3:])
 
 	if h1 == h2 {
 		return m1 - m2
 	}
-	return (h1 - 1 - h2) * 60 + 60 - m2 + m1 
+	return (h1-1-h2)*60 + 60 - m2 + m1
 }
 
 func alertNames(keyName []string, keyTime []string) []string {
-	staff := map[string][]string{}
-
 	l := len(keyName)
 	result := []string{}
 	if l < 3 {
 		return result
 	}
 
-	resultM := map[string]struct{}{}
+	staff := map[string][]string{}
 	for i := 0; i < l; i++ {
 		name := keyName[i]
 		time := keyTime[i]
-
-		if _, ok := staff[name]; !ok {
-			staff[name] = []string{time}
-		}else{
-			if Lower(time, staff[name][len(staff[name])-1]) {
-				staff[name] = []string{time}
-				continue
-			}
-			staff[name] = append(staff[name], time)
-			index := sort.Search(len(staff[name]), func(i int) bool {
-				return duration(time, staff[name][i]) <= 60
-			})
-			staff[name] = staff[name][index:]
-			if len(staff[name]) >= 3 {
-				resultM[name] = struct{}{}
-			}
-		}
+		staff[name] = append(staff[name], time)
 	}
 
-	for k := range resultM {
-		result = append(result, k)
+	for name, times := range staff {
+		sort.Slice(times, func(i, j int) bool {
+			return Lower(times[i], times[j])
+		})
+		for i := 0; i <= len(times)-3; i++ {
+			if duration(times[i+2], times[i]) <= 60 {
+				result = append(result, name)
+				break
+			}
+		}
 	}
 
 	sort.Strings(result)
