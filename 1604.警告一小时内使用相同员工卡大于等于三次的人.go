@@ -42,9 +42,8 @@ func duration(hm1, hm2 string) int {
 
 func alertNames(keyName []string, keyTime []string) []string {
 	l := len(keyName)
-	result := []string{}
 	if l < 3 {
-		return result
+		return []string{}
 	}
 
 	staff := map[string][]string{}
@@ -54,7 +53,11 @@ func alertNames(keyName []string, keyTime []string) []string {
 		staff[name] = append(staff[name], time)
 	}
 
+	result := []string{}
 	for name, times := range staff {
+		if len(times) < 3 {
+			continue
+		}
 		sort.Slice(times, func(i, j int) bool {
 			return Lower(times[i], times[j])
 		})
