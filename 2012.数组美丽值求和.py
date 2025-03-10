@@ -13,8 +13,8 @@ class Solution:
         suffmax[-1] = nums[-1]
         for i in range(1, len(nums)):
             premax[i] = max(premax[i-1], nums[i])
-        for i in range(len(nums)-2, -1, -1):
-            suffmax[i] = min(suffmax[i+1], nums[i])
+            j: int = len(nums)-1-i
+            suffmax[j] = min(suffmax[j+1], nums[j])
 
         result: int = 0
         for i in range(1, len(nums)-1):
