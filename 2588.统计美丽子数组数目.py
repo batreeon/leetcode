@@ -5,6 +5,7 @@
 #
 
 # @lc code=start
+# 和560题类似
 class Solution:
     def beautifulSubarrays(self, nums: List[int]) -> int:
         xors: list[int] = [0] * (len(nums)+1)
