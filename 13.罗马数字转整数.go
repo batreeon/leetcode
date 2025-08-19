@@ -32,8 +32,8 @@ func romanToInt(s string) int {
 				ss = ss[:len(ss)-1]
 			}
 		}else{
-			result += m[string(ss[len(ss)-1:])]
-			ss = ss[:len(ss)-1]
+			result += m[string(ss[:])]
+			return result
 		}
 	}
 	return result
