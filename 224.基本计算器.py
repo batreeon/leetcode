@@ -5,6 +5,8 @@
 #
 
 # @lc code=start
+#  只有+和-，那么可以括号外的单个数字看作一个整体、把括号看作一个整体
+# ops里记录每块整体的符号，sign记录每个数字的符号，每个数字的符号需要乘以每个整体的符号
 class Solution:
     def calculate(self, s: str) -> int:
         ops = [1]
