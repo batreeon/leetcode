@@ -7,25 +7,25 @@ type ListNode struct {
 	Next *ListNode
 }
 
-type LRU struct {
+type lru struct {
 	n int
 	m map[int]*ListNode
 	dummy *ListNode
 }
 
-func NewLru(n int) LRU {
+func NewLru(n int) lru {
 	dummy := &ListNode{}
 	dummy.Pre = dummy
 	dummy.Next = dummy
 
-	return LRU{
+	return lru{
 		n: n,
 		m: make(map[int]*ListNode),
 		dummy: dummy,
 	}
 }
 
-func (lru *LRU) Get(k int) int {
+func (lru *lru) Get(k int) int {
 	listNode, ok := lru.m[k]
 	if !ok {
 		return -1
@@ -36,7 +36,7 @@ func (lru *LRU) Get(k int) int {
 	return listNode.V
 }
 
-func (lru *LRU) Set(k, v int) {
+func (lru *lru) Set(k, v int) {
 	listNode, ok := lru.m[k]
 	if ok {
 		listNode.V = v
@@ -47,7 +47,7 @@ func (lru *LRU) Set(k, v int) {
 	if len(lru.m) == lru.n {
 		tailNode := lru.dummy.Pre
 		lru.remove(tailNode)
-		delete(lru.m, k)
+		delete(lru.m, tailNode.K)
 	}
 
 	newNode := &ListNode{
@@ -59,20 +59,20 @@ func (lru *LRU) Set(k, v int) {
 }
 
 
-func (lru *LRU) moveToFront(ln *ListNode) {
+func (lru *lru) moveToFront(ln *ListNode) {
 	lru.remove(ln)
 
 	lru.insertToFront(ln)
 }
 
-func (lru *LRU) insertToFront(ln *ListNode) {
+func (lru *lru) insertToFront(ln *ListNode) {
 	ln.Pre = lru.dummy
 	ln.Next = lru.dummy.Next
 	ln.Pre.Next = ln
 	ln.Next.Pre = ln
 }
 
-func (lru *LRU) remove(ln *ListNode) {
+func (lru *lru) remove(ln *ListNode) {
 	ln.Pre.Next = ln.Next
 	ln.Next.Pre = ln.Pre
 }
